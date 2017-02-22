@@ -4,12 +4,6 @@ class KeyFile < Key
   before_update :update_file, if: :file_changed?
   before_destroy :delete_file
 
-  def whitelisted?(user)
-        return true if self.whitelist.blank? || user.admin
-        whitelisted = self.whitelist.split(",").include?(user.id.to_s)
-        whitelisted
-      end
-
   private
 
   def update_file
@@ -25,6 +19,5 @@ class KeyFile < Key
       File.delete(file) if File.exist?(file)
     end
   end
-
 end
 end
